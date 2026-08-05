@@ -63,3 +63,29 @@ Use **Workers** when the project is primarily an API, background task, proxy, sc
 - Never commit client data, PHI, passwords, API tokens, or private business data.
 - Keep Cloudflare secrets in Cloudflare.
 - Keep GitHub permissions focused on the TIS Sandbox organization/repositories.
+
+## Robert/admin setup: connect this repo to Cloudflare Pages
+
+Cloudflare's native GitHub integration is completed in the Cloudflare dashboard, not from this repository. Recommended ownership model: Taylor team members work in GitHub; Robert/admins own the Cloudflare account, project settings, domains, and secrets.
+
+1. Log in to Cloudflare as the account owner/admin.
+2. Go to **Workers & Pages**.
+3. Click **Create**.
+4. Choose **Pages**.
+5. Choose **Connect to Git**.
+6. If GitHub is not connected yet, authorize/install the Cloudflare GitHub app for the `TIS-Sandbox` organization.
+   - Prefer granting Cloudflare access only to selected repositories, not every repository, unless Robert intentionally wants org-wide deployment access.
+   - Start with `TIS-Sandbox/cloudflare-starter`.
+7. Select the repository: `TIS-Sandbox/cloudflare-starter`.
+8. Use these build settings:
+   - Project name: `tis-cloudflare-starter` or `cloudflare-starter`
+   - Production branch: `main`
+   - Framework preset: `None`
+   - Build command: `npm run build`
+   - Build output directory: `public`
+   - Root directory: `/`
+9. Deploy.
+10. After deployment, add any needed variables/secrets at:
+    **Workers & Pages → cloudflare-starter project → Settings → Environment variables**.
+
+No GitHub Actions workflow is included because Cloudflare Pages' native Git integration is the preferred setup. Add GitHub Actions only if native Cloudflare Git integration cannot be used for policy or permission reasons.
