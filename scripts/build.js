@@ -1,4 +1,4 @@
-import { mkdirSync, accessSync } from 'node:fs';
+const { mkdirSync, accessSync } = require('node:fs');
 
 mkdirSync('public', { recursive: true });
 accessSync('public/index.html');
